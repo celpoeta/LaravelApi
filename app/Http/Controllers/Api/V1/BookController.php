@@ -22,7 +22,9 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $inputs = $request->input();
+        $respuesta = Book::create($inputs);
+        return new BookResource($respuesta);
     }
 
     /**
@@ -38,7 +40,21 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
+        $b = Book::find($book->id);
+        if (isset($b)) {
+            $b->title = $request->title;
+            $b->description = $request->description;
+            if ($b->save()) {
+                return response()->json([
+                    'data' => $b,
+                    'message' => 'Book actualizado con exito'
+                ]);
+            }
+        } else {
+            return response()->json([
+                'message' => 'No existe el book'
+            ]);
+        }
     }
 
     /**

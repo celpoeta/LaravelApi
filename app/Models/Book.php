@@ -16,7 +16,7 @@ class Book extends Model
 
     public function getDescriptionAttribute($value)
     {
-        return substr($value, 1, 120);
+        return substr($value, 0, 150);
     }
 
     public function getPublishedAtAttribute()
