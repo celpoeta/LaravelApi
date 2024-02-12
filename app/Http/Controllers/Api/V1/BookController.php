@@ -23,8 +23,11 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $inputs = $request->input();
-        $respuesta = Book::create($inputs);
-        return new BookResource($respuesta);
+        $b = Book::create($inputs);
+        return response()->json([
+            'message' => 'Book creado con exito',
+            'data' => new BookResource($b)
+        ]);;
     }
 
     /**
@@ -46,8 +49,8 @@ class BookController extends Controller
             $b->description = $request->description;
             if ($b->save()) {
                 return response()->json([
-                    'data' => $b,
-                    'message' => 'Book actualizado con exito'
+                    'message' => 'Book actualizado con exito',
+                    'data' => $b
                 ]);
             }
         } else {
