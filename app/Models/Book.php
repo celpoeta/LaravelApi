@@ -19,6 +19,11 @@ class Book extends Model
         return substr($value, 1, 120);
     }
 
+    public function getPublishedAtAttribute()
+    {
+        return $this->created_at->format('d/m/Y');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
